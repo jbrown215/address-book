@@ -706,3 +706,44 @@ collapseTaggedPerson (TaggedPerson x) = x
 @-}
 collapseTaggedFriends :: Monad m => TaggedFriends (m (TaggedFriends a)) -> m (TaggedFriends a)
 collapseTaggedFriends (TaggedFriends x) = x
+
+-- Insert functions
+{-@
+  insertTaggedUser ::
+    TaggedUser<{\u v -> true}> User -> ReaderT backend m (Key User)
+@-}
+insertTaggedUser :: (PersistEntityBackend User ~ BaseBackend backend,
+      PersistEntity User, Control.Monad.IO.Class.MonadIO m,
+      PersistStoreWrite backend) =>
+      TaggedUser User -> ReaderT backend m (Key User)
+insertTaggedUser (TaggedUser u) = insert u
+
+{-@
+  insertTaggedEmail ::
+    TaggedEmail<{\u v -> true}> Email -> ReaderT backend m (Key Email)
+@-}
+insertTaggedEmail :: (PersistEntityBackend Email ~ BaseBackend backend,
+      PersistEntity Email, Control.Monad.IO.Class.MonadIO m,
+      PersistStoreWrite backend) =>
+      TaggedEmail Email -> ReaderT backend m (Key Email)
+insertTaggedEmail (TaggedEmail u) = insert u
+
+{-@
+  insertTaggedPerson ::
+    TaggedPerson<{\u v -> true}> Person -> ReaderT backend m (Key Person)
+@-}
+insertTaggedPerson :: (PersistEntityBackend Person ~ BaseBackend backend,
+      PersistEntity Person, Control.Monad.IO.Class.MonadIO m,
+      PersistStoreWrite backend) =>
+      TaggedPerson Person -> ReaderT backend m (Key Person)
+insertTaggedPerson (TaggedPerson u) = insert u
+
+{-@
+  insertTaggedFriends ::
+    TaggedFriends<{\u v -> true}> Friends -> ReaderT backend m (Key Friends)
+@-}
+insertTaggedFriends :: (PersistEntityBackend Friends ~ BaseBackend backend,
+      PersistEntity Friends, Control.Monad.IO.Class.MonadIO m,
+      PersistStoreWrite backend) =>
+      TaggedFriends Friends -> ReaderT backend m (Key Friends)
+insertTaggedFriends (TaggedFriends u) = insert u
